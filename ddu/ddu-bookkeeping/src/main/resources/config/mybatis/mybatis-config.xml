@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTDConfig 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- 配置映射文件 -->
+<configuration>
+	<plugins>
+		<plugin interceptor="com.podesta.ddu.bk.core.interceptor.OffsetLimitInterceptor">
+			<property name="oracle" value="com.podesta.ddu.bk.core.db.myatis.dialect.OracleDialect"/>
+			<property name="mssql" value="com.podesta.ddu.bk.core.db.myatis.dialect.SQLServer2005Dialect"/>
+			<property name="mysql" value="com.podesta.ddu.bk.core.db.myatis.dialect.MySQLDialect"/>
+			<property name="db2" value="com.podesta.ddu.bk.core.db.myatis.dialect.DB2Dialect"/>
+			<property name="h2" value="com.podesta.ddu.bk.core.db.myatis.dialect.H2Dialect"/>
+			<property name="dm" value="com.podesta.ddu.bk.core.db.myatis.dialect.DmDialect"/>	
+		</plugin>
+	</plugins>
+</configuration>

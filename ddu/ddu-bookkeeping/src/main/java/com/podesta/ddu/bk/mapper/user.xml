@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.podesta.ddu.bk.dao.IUserDao">
+   <resultMap id="User" type="com.podesta.ddu.bk.model.User" autoMapping="true">
+   	<id column="id" property="id" jdbcType="NUMERIC"/>
+   	<result column="name" property="username" jdbcType="VARCHAR"/>
+   	<result column="password" property="password" jdbcType="VARCHAR"/>
+   </resultMap>
+   <sql id="columns">
+   	id,name,password
+   </sql>
+   
+   <select id="getUserByID" resultMap="User" parameterType="java.lang.Integer">
+   	select 
+   	<include refid="columns"/>
+   	from user
+   	where id= #{id}
+   </select>
+</mapper>

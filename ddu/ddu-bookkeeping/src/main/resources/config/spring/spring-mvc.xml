@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+	<!-- 配置自动扫描的包 使springmvc 认为包下用了@controller 注解的类是控制器 -->
+	<context:component-scan base-package="com.podesta.ddu.bk.controller" />
+
+	<!-- 默认的注解映射的支持 -->
+	<mvc:annotation-driven />
+
+	<mvc:default-servlet-handler />
+
+	<!-- 配置视图解析器 如何把handler 方法返回值解析为实际的物理视图 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+	<mvc:interceptors>
+		<!-- 使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求 -->
+		<!-- <bean class="com.host.app.web.interceptor.AllInterceptor"/> -->
+		<mvc:interceptor>
+			<mvc:mapping path="/" />
+			<!-- <mvc:exclude-mapping path=""/> -->
+			<!-- 定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的 -->
+			<bean class="com.podesta.ddu.bk.core.interceptor.LoginInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->
+	<!-- <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"> 
+		<property name="supportedMediaTypes"> <list> <value>text/html;charset=UTF-8</value> 
+		</list> </property> </bean> -->
+
+	<!-- spring上下文,可以获取 上下文的Context -->
+	<bean id="appUtil" class="com.podesta.ddu.bk.util.AppUtil" />
+</beans>
